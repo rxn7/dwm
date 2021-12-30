@@ -1096,6 +1096,11 @@ void manage(Window w, XWindowAttributes *wa) {
 	updatewindowtype(c);
 	updatesizehints(c);
 	updatewmhints(c);
+
+        /* Center */
+        c->x = c->mon->mx + (c->mon->mw - WIDTH(c)) / 2;
+        c->y = c->mon->my + (c->mon->mh - HEIGHT(c)) / 2;
+
 	XSelectInput(dpy, w, EnterWindowMask|FocusChangeMask|PropertyChangeMask|StructureNotifyMask);
 	grabbuttons(c, 0);
 	if (!c->isfloating)
@@ -1329,20 +1334,15 @@ void resizebarwin(Monitor *m) {
 
 void resizeclient(Client *c, int x, int y, int w, int h) {
 	XWindowChanges wc;
-	unsigned int n, gapoff, gapinc;
-	Client *nbc;
+	unsigned int gapoff, gapinc;
 
 	wc.border_width = c->bw;
 
-	/* Get the number of clients for the client's monitor */
-	for(n=0, nbc=nexttiled(c->mon->clients); nbc; nbc=nexttiled(nbc->next), ++n);
-
-	/* Do nothing if layout is floating */
-	if(c->isfloating || c->mon->lt[c->mon->sellt]->arrange == NULL) {
+	if(c->isfloating || c->mon->lt[c->mon->sellt]->arrange == NULL || c->isfullscreen) {
 		gapinc = gapoff = 0;
 	} else {
-		gapoff = gappx;
-		gapinc = gappx * 2;
+                gapoff = gappx;
+                gapinc = gappx *2;
 	}
 
         c->oldx = c->x; c->x = wc.x = x + gapoff;
@@ -2163,7 +2163,7 @@ void updatetitle(Client *c) {
 	if (!gettextprop(c->win, netatom[NetWMName], c->name, sizeof c->name))
 		gettextprop(c->win, XA_WM_NAME, c->name, sizeof c->name);
 	if (c->name[0] == '\0') /* hack to mark broken clients */
-		strcpy(c->name, broken);
+		strcpy(c->name, "Invalid title!!");
 }
 
 void updatewindowtype(Client *c) {

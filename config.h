@@ -7,7 +7,7 @@ static const unsigned int systrayspacing        = 2;
 static const int systraypinningfailfirst        = 1; 
 static const int showsystray                    = 1;
 static const int topbar                         = 1;
-static const unsigned int gappx                 = 6; 
+static const unsigned int gappx                 = 3; 
 static const char *fonts[]                      = { "Liberation Mono:size=10" };
 static const char *colors[][3] = {
 	[SchemeNorm] = { "#ebdbb2", "#282828", "#1d2021"},
@@ -39,10 +39,11 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 static const char *termcmd[]    = { "alacritty", NULL };
-static const char *browcmd[]    = { "brave", NULL };
+static const char *browcmd[]    = { "librewolf", NULL };
 static const char *sscmd[]      = { "flameshot", "gui", NULL };
-static const char *rofiruncmd[] = { "rofi", "-show", "run", NULL };
-static const char *rofidruncmd[]= { "rofi", "-show", "drun", NULL };
+
+static const char *rofiruncmd[] = { "rofi", "-1", "-show", "run", NULL };
+static const char *rofidruncmd[]= { "rofi", "-1", "-show", "drun", NULL };
 
 #define TAGKEY(id) \
         TAGKEYS(XK_##id+1, id) 
