@@ -39,11 +39,12 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 static const char *termcmd[]    = { "alacritty", NULL };
-static const char *browcmd[]    = { "librewolf", NULL };
+static const char *browcmd[]    = { "brave", NULL };
 static const char *sscmd[]      = { "flameshot", "gui", NULL };
 
-static const char *rofiruncmd[] = { "rofi", "-1", "-show", "run", NULL };
-static const char *rofidruncmd[]= { "rofi", "-1", "-show", "drun", NULL };
+static char rofimon[1] = "0";
+static char *rofiruncmd[] = { "rofi", "-m", rofimon, "-show", "run", NULL };
+static char *rofidruncmd[]= { "rofi", "-m", rofimon, "-show", "drun", NULL };
 
 #define TAGKEY(id) \
         TAGKEYS(XK_##id+1, id) 

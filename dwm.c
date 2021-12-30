@@ -1705,6 +1705,10 @@ void sigchld(int unused) {
 }
 
 void spawn(const Arg *arg) {
+        if(arg->v == rofiruncmd || arg->v == rofidruncmd) {
+                rofimon[0] = '0' + !selmon->num;
+        }
+
 	if (fork() == 0) {
 		if (dpy)
 			close(ConnectionNumber(dpy));
