@@ -15,7 +15,9 @@ static const char *colors[][3] = {
 };
 
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8" };
-static const Rule rules[] = { 0 };
+static const Rule rules[] = { 
+	{"dummy"},
+};
 
 static const float mfact        = 0.55f;
 static const int nmaster        = 1;
@@ -35,13 +37,13 @@ static const Layout layouts[] = {
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
-static const char *termcmd[]    = { "alacritty", NULL };
-static const char *browcmd[]    = { "brave", NULL };
-static const char *sscmd[]      = { "flameshot", "gui", NULL };
+static const char *termcmd[]    = { "alacritty", 0 };
+static const char *browcmd[]    = { "brave", 0 };
+static const char *sscmd[]      = { "flameshot", "gui", 0 };
 
-static char rofimon[1] = "0";
-static char *rofiruncmd[] = { "rofi", "-m", rofimon, "-show", "run", NULL };
-static char *rofidruncmd[]= { "rofi", "-m", rofimon, "-show", "drun", NULL };
+static char rofimon[2] = "0";
+static char *rofiruncmd[] = { "rofi", "-m", rofimon, "-show", "run", 0 };
+static char *rofidruncmd[]= { "rofi", "-m", rofimon, "-show", "drun", 0 };
 
 #define TAGKEY(id) \
         TAGKEYS(XK_##id+1, id) 
