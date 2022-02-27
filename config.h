@@ -15,10 +15,7 @@ static const char *colors[][3] = {
 };
 
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8" };
-static const Rule rules[] = { 
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
-};
+static const Rule rules[] = { 0 };
 
 static const float mfact        = 0.55f;
 static const int nmaster        = 1;
