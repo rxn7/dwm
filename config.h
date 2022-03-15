@@ -8,7 +8,7 @@ static const int systraypinningfailfirst        = 1;
 static const int showsystray                    = 1;
 static const int topbar                         = 1;
 static const unsigned int gappx                 = 3; 
-static const char *fonts[]                      = { "Liberation Mono:size=10" };
+static const char *fonts[]                      = { "Hurmit Nerd Font Mono:size=12" };
 static const char *colors[][3] = {
 	[SchemeNorm] = { "#ebdbb2", "#282828", "#1d2021"},
 	[SchemeSel]  = { "#ebdbb2", "#b16286", "#b8bb26"},
@@ -38,7 +38,7 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 static const char *termcmd[]    = { "alacritty", 0 };
-static const char *browcmd[]    = { "brave", 0 };
+static const char *browcmd[]    = { "vimb", 0 };
 static const char *sscmd[]      = { "flameshot", "gui", 0 };
 
 static char rofimon[2] = "0";
