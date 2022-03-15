@@ -2295,7 +2295,7 @@ int main(int argc, char *argv[]) {
 	scan();
 
 	/* Autostart */
-	system("~/sh/autostart.sh");
+	system("~/sh/autostart.sh &");
 
 	run();
 	cleanup();
