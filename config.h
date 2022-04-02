@@ -1,4 +1,5 @@
-static const unsigned int borderpx              = 2;
+/* Settings */
+static const unsigned int borderpx              = 4;
 static const unsigned int snap                  = 32;
 static const int showbar                        = 1;
 static const unsigned int systraypinning        = 0;
@@ -7,23 +8,21 @@ static const unsigned int systrayspacing        = 2;
 static const int systraypinningfailfirst        = 1; 
 static const int showsystray                    = 1;
 static const int topbar                         = 1;
-static const unsigned int gappx                 = 3; 
+static const unsigned int gappx                 = 14; 
 static const char *fonts[]                      = { "Hurmit Nerd Font Mono:size=12" };
-static const char *colors[][3] = {
-	[SchemeNorm] = { "#ebdbb2", "#282828", "#1d2021"},
-	[SchemeSel]  = { "#ebdbb2", "#b16286", "#b8bb26"},
-};
-
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8" };
-static const Rule rules[] = { 
-	{ "mpv", NULL, NULL, 1 << 3, 0, -1 },
-};
-
 static const float mfact        = 0.55f;
 static const int nmaster        = 1;
 static const int resizehints    = 0;
 static const int lockfullscreen = 0;
-
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8" };
+static const char *colors[][3] = {
+	/*                  fg         bg        border */
+	[SchemeNorm] = { "#ebdbb2", "#282828", "#ffffff"},
+	[SchemeSel]  = { "#ebdbb2", "#b16286", "#ff0000"},
+};
+static const Rule rules[] = { 
+	{ "b", "r", "uh", 0, 0, 0},
+};
 static const Layout layouts[] = {
 	{ "[T]",      tile },
 	{ "[M]",      monocle },
@@ -37,8 +36,7 @@ static const Layout layouts[] = {
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
-static const char *termcmd[]    = { "alacritty", 0 };
-static const char *browcmd[]    = { "vimb", 0 };
+#define ZSH(cmd) { .v = (const char *[]){"/bin/zsh", "-c", cmd, NULL } }
 static const char *sscmd[]      = { "flameshot", "gui", 0 };
 
 static char rofimon[2] = "0";
@@ -51,8 +49,9 @@ static char *rofidruncmd[]= { "rofi", "-m", rofimon, "-show", "drun", 0 };
 static Key keys[] = {
         { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = rofiruncmd} },
         { MODKEY,                       XK_p,      spawn,          {.v = rofidruncmd} },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_w,      spawn,          {.v = browcmd } },
+	{ MODKEY,                       XK_Return, spawn,          ZSH("$TERMINAL") },
+	{ MODKEY,                       XK_e,	   spawn,          ZSH("$FILEMAN") },
+	{ MODKEY,                       XK_w,      spawn,           ZSH("$BROWSER") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -90,7 +89,6 @@ static Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },

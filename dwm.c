@@ -282,6 +282,8 @@ static Drw *drw;
 static Monitor *mons, *selmon;
 static Window root, wmcheckwin;
 
+char *terminal, *browser, *fileman;
+
 /* configuration, allows nested code to access above variables */
 #include "config.h"
 
