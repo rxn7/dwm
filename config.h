@@ -1,3 +1,5 @@
+#include <X11/XF86keysym.h>
+
 /* Settings */
 static const unsigned int borderpx              = 4;
 static const unsigned int snap                  = 32;
@@ -9,7 +11,7 @@ static const int systraypinningfailfirst        = 1;
 static const int showsystray                    = 1;
 static const int topbar                         = 1;
 static const unsigned int gappx                 = 14; 
-static const char *fonts[]                      = { "Hurmit Nerd Font Mono:size=12" };
+static const char *fonts[]                      = { "Iosevka Nerd Font Mono:size=14" };
 static const float mfact        = 0.55f;
 static const int nmaster        = 1;
 static const int resizehints    = 0;
@@ -21,7 +23,7 @@ static const char *colors[][3] = {
 	[SchemeSel]  = { "#ebdbb2", "#b16286", "#ff0000"},
 };
 static const Rule rules[] = { 
-	{ "b", "r", "uh", 0, 0, 0},
+	{ "b", "ru", "h", 0, 0, 0},
 };
 static const Layout layouts[] = {
 	{ "[T]",      tile },
@@ -37,11 +39,11 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 #define ZSH(cmd) { .v = (const char *[]){"/bin/zsh", "-c", cmd, NULL } }
-static const char *sscmd[]      = { "flameshot", "gui", 0 };
 
 static char rofimon[2] = "0";
-static char *rofiruncmd[] = { "rofi", "-m", rofimon, "-show", "run", 0 };
-static char *rofidruncmd[]= { "rofi", "-m", rofimon, "-show", "drun", 0 };
+static const char *rofiruncmd[] = { "rofi", "-m", rofimon, "-show", "run", 0 };
+static const char *rofidruncmd[] = { "rofi", "-m", rofimon, "-show", "drun", 0 };
+static const char *sscmd[] = { "flameshot", "gui", 0 };
 
 #define TAGKEY(id) \
         TAGKEYS(XK_##id+1, id) 
@@ -51,7 +53,7 @@ static Key keys[] = {
         { MODKEY,                       XK_p,      spawn,          {.v = rofidruncmd} },
 	{ MODKEY,                       XK_Return, spawn,          ZSH("$TERMINAL") },
 	{ MODKEY,                       XK_e,	   spawn,          ZSH("$FILEMAN") },
-	{ MODKEY,                       XK_w,      spawn,           ZSH("$BROWSER") },
+	{ MODKEY,                       XK_w,      spawn,          ZSH("$BROWSER") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
