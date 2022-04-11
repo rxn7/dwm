@@ -1,4 +1,4 @@
-#include <X11/XF86keysym.h>
+#include "dwm.h"
 
 /* Settings */
 static const unsigned int borderpx              = 4;
@@ -19,8 +19,8 @@ static const int lockfullscreen = 0;
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8" };
 static const char *colors[][3] = {
 	/*                  fg         bg        border */
-	[SchemeNorm] = { "#ebdbb2", "#282828", "#ffffff"},
-	[SchemeSel]  = { "#ebdbb2", "#b16286", "#ff0000"},
+	/* Normal */ { "#ebdbb2", "#282828", "#ffffff"},
+	/* Focus */ { "#ebdbb2", "#b16286", "#ff0000"},
 };
 static const Rule rules[] = { 
 	{ "b", "ru", "h", 0, 0, 0},
@@ -54,6 +54,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, spawn,          ZSH("$TERMINAL") },
 	{ MODKEY,                       XK_e,	   spawn,          ZSH("$FILEMAN") },
 	{ MODKEY,                       XK_w,      spawn,          ZSH("$BROWSER") },
+        { 0,                            XK_Print,  spawn,          {.v = sscmd} },
+
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -69,14 +71,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_c,      quit,           {.i=23} },
-        { 0,                            XK_Print,  spawn,          {.v = sscmd} },
         TAGKEY(0)
         TAGKEY(1)
         TAGKEY(2)
