@@ -1,8 +1,8 @@
 #include "dwm.h"
 
 /* Settings */
-static const unsigned int borderpx              = 4;
-static const unsigned int snap                  = 32;
+static const unsigned int borderpx              = 2;
+static const unsigned int snap                  = 8;
 static const int showbar                        = 1;
 static const unsigned int systraypinning        = 0;
 static const unsigned int systrayonleft         = 0;
@@ -11,16 +11,26 @@ static const int systraypinningfailfirst        = 1;
 static const int showsystray                    = 1;
 static const int topbar                         = 1;
 static const unsigned int gappx                 = 14; 
-static const char *fonts[]                      = { "Iosevka Nerd Font Mono:size=14" };
+
+static const char mainFont[] = "LiterationMono Nerd Font Mono:size=14";
+
+static const char *fonts[]                      = { mainFont, "JoyPixels:size=14" };
 static const float mfact        = 0.55f;
 static const int nmaster        = 1;
-static const int resizehints    = 0;
+static const int resizehints    = 1;
 static const int lockfullscreen = 0;
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8" };
+
+static const char normBg[] = "#282c34";
+static const char normFg[] = "#abb2bf";
+static const char focBg[] = "#c678dd";
+static const char focFg[] = "#ffffff";
+
+
 static const char *colors[][3] = {
 	/*                  fg         bg        border */
-	/* Normal */ { "#ebdbb2", "#282828", "#ffffff"},
-	/* Focus */ { "#ebdbb2", "#b16286", "#ff0000"},
+	/* Normal */ { normFg, normBg, "#282c34"},
+	/* Focus */ { focFg, focBg, "#c678dd"},
 };
 static const Rule rules[] = { 
 	{ "b", "ru", "h", 0, 0, 0},
@@ -40,17 +50,15 @@ static const Layout layouts[] = {
 
 #define ZSH(cmd) { .v = (const char *[]){"/bin/zsh", "-c", cmd, NULL } }
 
-static char rofimon[2] = "0";
-static const char *rofiruncmd[] = { "rofi", "-m", rofimon, "-show", "run", 0 };
-static const char *rofidruncmd[] = { "rofi", "-m", rofimon, "-show", "drun", 0 };
+static char dmenumon[2] = "0";
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", mainFont, "-nb", normBg, "-nf", normFg, "-sb", focBg, "-sf", focFg, NULL };
 static const char *sscmd[] = { "flameshot", "gui", 0 };
 
 #define TAGKEY(id) \
         TAGKEYS(XK_##id+1, id) 
 
 static Key keys[] = {
-        { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = rofiruncmd} },
-        { MODKEY,                       XK_p,      spawn,          {.v = rofidruncmd} },
+        { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd} },
 	{ MODKEY,                       XK_Return, spawn,          ZSH("$TERMINAL") },
 	{ MODKEY,                       XK_e,	   spawn,          ZSH("$FILEMAN") },
 	{ MODKEY,                       XK_w,      spawn,          ZSH("$BROWSER") },
