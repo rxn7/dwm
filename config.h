@@ -12,13 +12,13 @@ static const int showsystray                    = 1;
 static const int topbar                         = 1;
 static const unsigned int gappx                 = 14; 
 
-static const char mainFont[] = "LiterationMono Nerd Font Mono:size=14";
+static const char mainFont[] = "LiterationMono Nerd Font Mono:size=12";
 
-static const char *fonts[]                      = { mainFont, "JoyPixels:size=14" };
+static const char *fonts[] 	= { mainFont, "JoyPixels:size=12" };
 static const float mfact        = 0.55f;
 static const int nmaster        = 1;
 static const int resizehints    = 1;
-static const int lockfullscreen = 0;
+static const int lockfullscreen = 1;
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8" };
 
 static const char normBg[] = "#282c34";
@@ -26,11 +26,9 @@ static const char normFg[] = "#abb2bf";
 static const char focBg[] = "#c678dd";
 static const char focFg[] = "#ffffff";
 
-
 static const char *colors[][3] = {
-	/*                  fg         bg        border */
-	/* Normal */ { normFg, normBg, "#282c34"},
-	/* Focus */ { focFg, focBg, "#c678dd"},
+	{ normFg, normBg, "#282c34"},
+	{ focFg, focBg, "#c678dd"},
 };
 static const Rule rules[] = { 
 	{ "b", "ru", "h", 0, 0, 0},
@@ -52,7 +50,6 @@ static const Layout layouts[] = {
 
 static char dmenumon[2] = "0";
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", mainFont, "-nb", normBg, "-nf", normFg, "-sb", focBg, "-sf", focFg, NULL };
-static const char *sscmd[] = { "flameshot", "gui", 0 };
 
 #define TAGKEY(id) \
         TAGKEYS(XK_##id+1, id) 
@@ -62,7 +59,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, spawn,          ZSH("$TERMINAL") },
 	{ MODKEY,                       XK_e,	   spawn,          ZSH("$FILEMAN") },
 	{ MODKEY,                       XK_w,      spawn,          ZSH("$BROWSER") },
-        { 0,                            XK_Print,  spawn,          {.v = sscmd} },
+        { 0,                            XK_Print,  spawn,          ZSH("~/sh/ssclipboard.sh")},
 
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
