@@ -50,18 +50,18 @@ int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact) {
 	*h = MAX(1, *h);
 	if (interact) {
 		if (*x > sw)
-			*x = sw - WIDTH(c);
+			*x = sw - WIDTH_GAP(c);
 		if (*y > sh)
-			*y = sh - HEIGHT(c);
+			*y = sh - HEIGHT_GAP(c);
 		if (*x + *w + 2 * c->bw < 0)
 			*x = 0;
 		if (*y + *h + 2 * c->bw < 0)
 			*y = 0;
 	} else {
 		if (*x >= m->wx + m->ww)
-			*x = m->wx + m->ww - WIDTH(c);
+			*x = m->wx + m->ww - WIDTH_GAP(c);
 		if (*y >= m->wy + m->wh)
-			*y = m->wy + m->wh - HEIGHT(c);
+			*y = m->wy + m->wh - HEIGHT_GAP(c);
 		if (*x + *w + 2 * c->bw <= m->wx)
 			*x = m->wx;
 		if (*y + *h + 2 * c->bw <= m->wy)
@@ -362,9 +362,9 @@ void configurerequest(XEvent *e) {
 				c->h = ev->height;
 			}
 			if ((c->x + c->w) > m->mx + m->mw && c->isfloating)
-				c->x = m->mx + (m->mw / 2 - WIDTH(c) / 2); /* center in x direction */
+				c->x = m->mx + (m->mw / 2 - WIDTH_GAP(c) / 2); /* center in x direction */
 			if ((c->y + c->h) > m->my + m->mh && c->isfloating)
-				c->y = m->my + (m->mh / 2 - HEIGHT(c) / 2); /* center in y direction */
+				c->y = m->my + (m->mh / 2 - HEIGHT_GAP(c) / 2); /* center in y direction */
 			if ((ev->value_mask & (CWX|CWY)) && !(ev->value_mask & (CWWidth|CWHeight)))
 				configure(c);
 			if (ISVISIBLE(c))
@@ -775,10 +775,10 @@ void manage(Window w, XWindowAttributes *wa) {
 		applyrules(c);
 	}
 
-	if (c->x + WIDTH(c) > c->mon->mx + c->mon->mw)
-		c->x = c->mon->mx + c->mon->mw - WIDTH(c);
-	if (c->y + HEIGHT(c) > c->mon->my + c->mon->mh)
-		c->y = c->mon->my + c->mon->mh - HEIGHT(c);
+	if (c->x + WIDTH_GAP(c) > c->mon->mx + c->mon->mw)
+		c->x = c->mon->mx + c->mon->mw - WIDTH_GAP(c);
+	if (c->y + HEIGHT_GAP(c) > c->mon->my + c->mon->mh)
+		c->y = c->mon->my + c->mon->mh - HEIGHT_GAP(c);
 	c->x = MAX(c->x, c->mon->mx);
 	/* only fix client y-offset, if the client center might cover the bar */
 	c->y = MAX(c->y, ((c->mon->by == c->mon->my) && (c->x + (c->w / 2) >= c->mon->wx)
@@ -794,8 +794,8 @@ void manage(Window w, XWindowAttributes *wa) {
 	updatewmhints(c);
 
         /* Center */
-        c->x = c->mon->mx + (c->mon->mw - WIDTH(c)) / 2;
-        c->y = c->mon->my + (c->mon->mh - HEIGHT(c)) / 2;
+        c->x = c->mon->mx + (c->mon->mw - WIDTH_GAP(c)) / 2;
+        c->y = c->mon->my + (c->mon->mh - HEIGHT_GAP(c)) / 2;
 
 	XSelectInput(dpy, w, EnterWindowMask|FocusChangeMask|PropertyChangeMask|StructureNotifyMask);
 	grabbuttons(c, 0);
@@ -907,12 +907,12 @@ void movemouse(const Arg *arg) {
 			ny = ocy + (ev.xmotion.y - y);
 			if (abs(selmon->wx - nx) < snap)
 				nx = selmon->wx;
-			else if (abs((selmon->wx + selmon->ww) - (nx + WIDTH(c))) < snap)
-				nx = selmon->wx + selmon->ww - WIDTH(c);
+			else if (abs((selmon->wx + selmon->ww) - (nx + WIDTH_GAP(c))) < snap)
+				nx = selmon->wx + selmon->ww - WIDTH_GAP(c);
 			if (abs(selmon->wy - ny) < snap)
 				ny = selmon->wy;
-			else if (abs((selmon->wy + selmon->wh) - (ny + HEIGHT(c))) < snap)
-				ny = selmon->wy + selmon->wh - HEIGHT(c);
+			else if (abs((selmon->wy + selmon->wh) - (ny + HEIGHT_GAP(c))) < snap)
+				ny = selmon->wy + selmon->wh - HEIGHT_GAP(c);
 			if (!c->isfloating && selmon->lt[selmon->sellt]->arrange
 			&& (abs(nx - c->x) > snap || abs(ny - c->y) > snap))
 				togglefloating(NULL);
@@ -1390,7 +1390,7 @@ void showhide(Client *c) {
 	} else {
 		/* hide clients bottom up */
 		showhide(c->snext);
-		XMoveWindow(dpy, c->win, WIDTH(c) * -2, c->y);
+		XMoveWindow(dpy, c->win, WIDTH_GAP(c) * -2, c->y);
 	}
 }
 
@@ -1446,13 +1446,13 @@ void tile(Monitor *m) {
 		if (i < m->nmaster) {
 			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
 			resize(c, m->wx, m->wy + my, mw - (2*c->bw) + (n > 1 ? gappx : 0), h - (2*c->bw), 0);
-			if (my + HEIGHT(c) < m->wh)
-				my += HEIGHT(c);
+			if (my + HEIGHT_GAP(c) < m->wh)
+				my += HEIGHT_GAP(c);
 		} else {
 			h = (m->wh - ty) / (n - i);
 			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
-			if (ty + HEIGHT(c) < m->wh)
-				ty += HEIGHT(c);
+			if (ty + HEIGHT_GAP(c) < m->wh)
+				ty += HEIGHT_GAP(c);
 		}
 }
 

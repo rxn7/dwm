@@ -1,8 +1,9 @@
 #include "dwm.h"
+#include "X11/XF86keysym.h"
 
 /* Settings */
 static const unsigned int borderpx              = 2;
-static const unsigned int snap                  = 8;
+static const unsigned int snap                  = 0;
 static const int showbar                        = 1;
 static const unsigned int systraypinning        = 0;
 static const unsigned int systrayonleft         = 0;
@@ -12,9 +13,9 @@ static const int showsystray                    = 1;
 static const int topbar                         = 1;
 static const unsigned int gappx                 = 14; 
 
-static const char mainFont[] = "LiterationMono Nerd Font Mono:size=12";
+static const char mainFont[] = "LiterationMono Nerd Font Mono:size=14";
 
-static const char *fonts[] 	= { mainFont, "JoyPixels:size=12" };
+static const char *fonts[] 	= { mainFont, "JoyPixels:size=14" };
 static const float mfact        = 0.55f;
 static const int nmaster        = 1;
 static const int resizehints    = 1;
@@ -60,6 +61,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_e,	   spawn,          ZSH("$FILEMAN") },
 	{ MODKEY,                       XK_w,      spawn,          ZSH("$BROWSER") },
         { 0,                            XK_Print,  spawn,          ZSH("~/sh/ssclipboard.sh")},
+        { 0,                       XF86XK_AudioRaiseVolume,  spawn, ZSH("pamixer -i 2")},
+        { 0,                       XF86XK_AudioLowerVolume,  spawn, ZSH("pamixer -d 2")},
+        { 0,                       XF86XK_AudioMute,  spawn, ZSH("pamixer -t")},
 
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
