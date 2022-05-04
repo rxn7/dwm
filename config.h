@@ -3,7 +3,7 @@
 
 /* Settings */
 static const unsigned int borderpx              = 2;
-static const unsigned int snap                  = 0;
+static const unsigned int snap                  = 8;
 static const int showbar                        = 1;
 static const unsigned int systraypinning        = 0;
 static const unsigned int systrayonleft         = 0;
