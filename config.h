@@ -20,7 +20,7 @@ static const float mfact        = 0.55f;
 static const int nmaster        = 1;
 static const int resizehints    = 1;
 static const int lockfullscreen = 1;
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6" };
 
 static const char normBg[] = "#282c34";
 static const char normFg[] = "#abb2bf";
@@ -60,11 +60,12 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, spawn,          ZSH("$TERMINAL") },
 	{ MODKEY,                       XK_e,	   spawn,          ZSH("$FILEMAN") },
 	{ MODKEY,                       XK_w,      spawn,          ZSH("$BROWSER") },
+	{ MODKEY,			XK_m,	   spawn,          ZSH("$TERMINAL -e neomutt") },
+	{ MODKEY|ShiftMask,		XK_m|ShiftMask,	   spawn,          ZSH("$BROWSER https://mail.protonmail.com/u/0/inbox") },
         { 0,                            XK_Print,  spawn,          ZSH("~/sh/ssclipboard.sh")},
-        { 0,                       XF86XK_AudioRaiseVolume,  spawn, ZSH("pamixer -i 2")},
-        { 0,                       XF86XK_AudioLowerVolume,  spawn, ZSH("pamixer -d 2")},
-        { 0,                       XF86XK_AudioMute,  spawn, ZSH("pamixer -t")},
-
+        { 0,        	                XF86XK_AudioRaiseVolume,  spawn, ZSH("pamixer -i 2")},
+        { 0,        	                XF86XK_AudioLowerVolume,  spawn, ZSH("pamixer -d 2")},
+        { 0,        	                XF86XK_AudioMute,  spawn, ZSH("pamixer -t")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -76,8 +77,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
